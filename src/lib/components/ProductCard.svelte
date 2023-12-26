@@ -8,8 +8,9 @@
 	export let imageUrl: string | undefined;
 	export let quantitySold: number;
 	export let price: number;
-	export let createdAt: Timestamp;
 	export let testId = 'product-card';
+	export let productId: string;
+	export let toggleReviewsSidePanel: (open: boolean, productId: string) => void;
 </script>
 
 <Card>
@@ -19,7 +20,7 @@
 	<h3>{title}</h3>
 	<p>Sold: {quantitySold}</p>
 	<p>{currencyAndAmountFormatter(price)}</p>
-	<!-- <p>{formatDate(createdAt.toDate())}</p> -->
+	<button on:click={() => toggleReviewsSidePanel(true, productId)}>Reviews</button>
 </Card>
 
 <style>

@@ -5,6 +5,7 @@
 	import HStack from '$lib/components/HStack.svelte';
 
 	import { storeTest } from './store.js';
+	import ReviewsSidePanel from '$lib/components/ReviewsSidePanel/ReviewsSidePanel.svelte';
 
 	export let data;
 	export let form;
@@ -12,6 +13,14 @@
 	let viewAddProductForm = false;
 	const handleToggleViewProductForm = (open: boolean) => {
 		viewAddProductForm = open;
+	};
+
+	let openReviewsSidePanel = false;
+	let productId: string | undefined = undefined;
+
+	const toggleReviewsSidePanel = (open: boolean, prodId?: string) => {
+		openReviewsSidePanel = open;
+		productId = prodId;
 	};
 </script>
 
@@ -45,6 +54,8 @@
 	{/if}
 </Dialog>
 
+<ReviewsSidePanel view={openReviewsSidePanel} toggleSidePanel={toggleReviewsSidePanel} />
+
 <section>
 	<button on:click={() => handleToggleViewProductForm(true)}>Add product</button>
 </section>
@@ -57,12 +68,13 @@
 	{#if data.products}
 		{#each data.products as product}
 			<ProductCard
-				createdAt={product.createdAt}
 				imageUrl={product.imageUrl}
 				price={product.price}
 				quantitySold={product.quantitySold}
 				title={product.title}
 				testId={`product-card-${product.id}`}
+				{toggleReviewsSidePanel}
+				productId={product.id || ''}
 			/>
 		{/each}
 	{/if}
