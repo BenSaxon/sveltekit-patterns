@@ -1,9 +1,11 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { load, type Product } from './+page';
+import { load } from './+page';
 import Page from './+page.svelte';
 import { createTimestamp } from '$lib/utils/timeUtils';
 import { render, screen } from '@testing-library/svelte';
 import { mockProducts } from '$lib/utils/mockDataUtils';
+import 'vitest-dom/extend-expect'; // requried for using matchers like toBeInTheDocment
+import type { Product } from '$lib/models';
 
 const apiResponse: Product[] = [
 	{
@@ -50,7 +52,7 @@ describe('home page load function', () => {
 	});
 });
 
-describe('home page', () => {
+describe('home page UI', () => {
 	it('renders product cards', () => {
 		render(Page, {
 			data: {
@@ -64,13 +66,8 @@ describe('home page', () => {
 			}
 		});
 		mockProducts.forEach((p) => {
-			screen.getByTestId(`product-card-${p.id}`);
+			const card = screen.getByTestId(`product-card-${p.id}`);
+			expect(card).toBeVisible();
 		});
-		// const text = screen.queryByTestId('hello-text');
-		// if (!text) {
-		// 	expect(true).toBe(false);
-		// 	return;
-		// }
-		// expect(text).toHaveTextContent('hello');
 	});
 });

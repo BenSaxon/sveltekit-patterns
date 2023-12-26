@@ -1,15 +1,6 @@
 import getProducts from '$lib/api/products/getProducts';
+import type { Product } from '$lib/models';
 import { getErrorMessage } from '$lib/utils/errorUtils';
-import type { Timestamp } from 'firebase/firestore';
-
-export interface Product {
-	id?: string;
-	title: string;
-	quantitySold: number;
-	createdAt: Timestamp;
-	imageUrl?: string;
-	price: number;
-}
 
 export async function load() {
 	try {

@@ -9,7 +9,7 @@
 	export let quantitySold: number;
 	export let price: number;
 	export let createdAt: Timestamp;
-	export let testId = "product-card"
+	export let testId = 'product-card';
 </script>
 
 <Card>

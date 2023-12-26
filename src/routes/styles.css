@@ -12,6 +12,16 @@
 	--color-text: rgba(0, 0, 0, 0.7);
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
+	--black: #000000;
+	--offBlack: #333333;
+	--darkGrey: #96968c;
+	--lightGrey: #e6e6dc;
+	--white: #ffffff;
+	--blue: #0041f0;
+	--success: #64ff50;
+	--error: #ff3246;
+	--orange: #ff7800;
+	--lightOrange: #ff9233;
 	font-family: var(--font-body);
 	color: var(--color-text);
 }

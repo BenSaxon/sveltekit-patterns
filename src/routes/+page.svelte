@@ -2,6 +2,8 @@
 	// import { enhance } from '$app/forms';
 	import Dialog from '$lib/components/Dialog.svelte';
 	import ProductCard from '$lib/components/ProductCard.svelte';
+	import HStack from '$lib/components/HStack.svelte';
+
 	import { storeTest } from './store.js';
 
 	export let data;
@@ -19,6 +21,7 @@
 </svelte:head>
 
 <Dialog isOpen={viewAddProductForm} handleIsOpen={handleToggleViewProductForm}>
+	<h3>Add product</h3>
 	<form method="POST" action="?/postProduct">
 		<label>
 			Title
@@ -28,21 +31,25 @@
 			Image URL
 			<input name="imageUrl" />
 		</label>
-		<button>Add product</button>
+		<label>
+			Price (pence)
+			<input name="price" />
+		</label>
+		<HStack>
+			<button on:click={() => handleToggleViewProductForm(false)} type="button">Close</button>
+			<button type="submit">Add product</button>
+		</HStack>
 	</form>
+	{#if form?.message}
+		<p>{form?.message.toString()}</p>
+	{/if}
 </Dialog>
 
 <section>
 	<button on:click={() => handleToggleViewProductForm(true)}>Add product</button>
 </section>
 
-<p data-testid="hello-text">hello-text</p>
-
 <section class="products">
-	{#if form?.message}
-		<p>{form?.message.toString()}</p>
-	{/if}
-
 	{#if data.errorMessage}
 		<p>{data.errorMessage}</p>
 	{/if}
