@@ -37,13 +37,13 @@ describe('home page load function', () => {
 		vi.restoreAllMocks();
 	});
 	it('successful response', async () => {
-		const result = await load();
+		const result = await load({ fetch });
 		expect(result).toEqual({ products: apiResponse });
 	});
 
 	it('api returns error', async () => {
 		global.fetch = vi.fn().mockRejectedValue(new Error('Failed to fetch data'));
-		const result = await load();
+		const result = await load({ fetch });
 
 		expect(result).toEqual({
 			products: undefined,

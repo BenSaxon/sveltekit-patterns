@@ -1,4 +1,4 @@
-import type { Product } from '../../routes/+page';
+import type { Product, Review } from '$lib/models';
 import { createTimestamp } from './timeUtils';
 
 export const mockProducts: Product[] = [
@@ -17,5 +17,24 @@ export const mockProducts: Product[] = [
 		createdAt: createTimestamp(),
 		imageUrl: 'image2.jpg',
 		price: 500
+	}
+];
+
+export const mockReviews: Review[] = [
+	{
+		id: '1',
+		description: 'Review 1',
+		createdAt: createTimestamp(),
+		rating: 4,
+		reviewerName: 'Ben Saxon',
+		productId: 'product1'
+	},
+	{
+		id: '2',
+		description: 'Review 2',
+		createdAt: createTimestamp(),
+		rating: 2,
+		reviewerName: 'Bob Marley',
+		productId: 'product2'
 	}
 ];

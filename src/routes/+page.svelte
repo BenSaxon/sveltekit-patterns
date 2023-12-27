@@ -54,7 +54,11 @@
 	{/if}
 </Dialog>
 
-<ReviewsSidePanel view={openReviewsSidePanel} toggleSidePanel={toggleReviewsSidePanel} />
+<ReviewsSidePanel
+	view={openReviewsSidePanel}
+	toggleSidePanel={toggleReviewsSidePanel}
+	{productId}
+/>
 
 <section>
 	<button on:click={() => handleToggleViewProductForm(true)}>Add product</button>
