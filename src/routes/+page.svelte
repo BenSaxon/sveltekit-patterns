@@ -22,6 +22,11 @@
 		openReviewsSidePanel = open;
 		productId = prodId;
 	};
+
+	let viewAddReviewForm = false;
+	const toggleAddReviewForm = (open: boolean) => {
+		viewAddReviewForm = open;
+	};
 </script>
 
 <svelte:head>
@@ -54,10 +59,38 @@
 	{/if}
 </Dialog>
 
+<Dialog isOpen={viewAddReviewForm} handleIsOpen={handleToggleViewProductForm}>
+	<h3>Add review for {productId}</h3>
+	<form method="POST" action="?/postReview">
+		<label>
+			Reviewer name
+			<input name="reviewerName" />
+		</label>
+		<label>
+			Description
+			<input name="description" />
+		</label>
+		<label>
+			Rating (1-10)
+			<input name="rating" type="number" />
+		</label>
+		<input name="productId" value={productId} class="hide" />
+		<HStack>
+			<button on:click={() => toggleAddReviewForm(false)} type="button">Close</button>
+			<button type="submit">Add review</button>
+		</HStack>
+	</form>
+	{#if form?.message}
+		<p>{form?.message.toString()}</p>
+	{/if}
+</Dialog>
+
 <ReviewsSidePanel
 	view={openReviewsSidePanel}
 	toggleSidePanel={toggleReviewsSidePanel}
 	{productId}
+	formaData={form}
+	{toggleAddReviewForm}
 />
 
 <section>
@@ -92,5 +125,10 @@
 		justify-content: center;
 		align-items: center;
 		/* flex: 0.6; */
+	}
+	.hide {
+		visibility: hidden;
+		height: 0;
+		width: 0;
 	}
 </style>

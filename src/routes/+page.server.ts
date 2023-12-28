@@ -64,7 +64,7 @@ export const actions = {
 				productId
 			};
 			const postReviewRequest = await fetch(
-				'http://127.0.0.1:5001/merchant-ai-poc-dev/europe-west3/postProduct',
+				'http://127.0.0.1:5001/merchant-ai-poc-dev/europe-west3/postReview',
 				{
 					method: 'POST',
 					mode: 'cors',
