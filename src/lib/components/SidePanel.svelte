@@ -13,11 +13,11 @@
 		right: 0;
 	}
 	div.side-panel {
-		width: 300px;
+		width: 400px;
 		height: calc(100vh - 40px);
 		padding: 20px;
 		position: fixed;
-		right: -342px;
+		right: -442px;
 		top: 0;
 		background-color: var(--white);
 		transition: 0.3s;

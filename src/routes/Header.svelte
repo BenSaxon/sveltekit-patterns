@@ -1,16 +1,28 @@
-<script>
-	import { page } from '$app/stores';
-	import logo from '$lib/images/svelte-logo.svg';
-	import github from '$lib/images/github.svg';
-</script>
-
-<header></header>
+<header>
+	<a href="/" class="bold">Sveltekit Patterns</a>
+	<a href="/lessons">Lessons</a>
+</header>
 
 <style>
 	header {
 		display: flex;
 		justify-content: space-between;
-		background: var(--lightOrange);
+		background: var(--black);
 		height: 80px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 20px;
+	}
+	a {
+		color: white;
+		text-decoration: none;
+		font-size: 20px;
+	}
+	a:hover {
+		text-decoration: none;
+	}
+	.bold {
+		font-weight: bold;
 	}
 </style>

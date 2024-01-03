@@ -9,7 +9,7 @@ global.fetch = vitest.fn().mockImplementation(() =>
 	})
 );
 
-describe('getProducts', () => {
+describe('getReviews', () => {
 	afterEach(() => {
 		vi.restoreAllMocks();
 	});

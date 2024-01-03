@@ -3,6 +3,7 @@
 	import { currencyAndAmountFormatter } from '$lib/utils/currencyUtils';
 	import Card from './Card.svelte';
 	import { formatDate } from '$lib/utils/dateUtils';
+	import Button from './Button.svelte';
 
 	export let title: string;
 	export let imageUrl: string | undefined;
@@ -20,7 +21,12 @@
 	<h3>{title}</h3>
 	<p>Sold: {quantitySold}</p>
 	<p>{currencyAndAmountFormatter(price)}</p>
-	<button on:click={() => toggleReviewsSidePanel(true, productId)}>Reviews</button>
+	<Button
+		onClickHandler={() => toggleReviewsSidePanel(true, productId)}
+		variant="outline"
+		size="sm"
+		--margin="20px 0 0 0">Reviews</Button
+	>
 </Card>
 
 <style>

@@ -10,12 +10,25 @@
 	export let productId: string | undefined;
 
 	$: {
-		if (view && formaData) loadReviews(productId);
+		if (view) loadReviews(productId);
+		else if (formaData?.success) {
+			loadReviews(productId);
+		}
 	}
 </script>
 
 <SidePanel {view} {toggleSidePanel}>
-	<p>{JSON.stringify($reviewsStore)}</p>
-	<p>{productId}</p>
 	<button on:click={() => toggleAddReviewForm(true, productId)}>Add review</button>
+	{#if $reviewsStore.loading}
+		<p>Loading...</p>
+	{:else if $reviewsStore.data}
+		{#each $reviewsStore.data as review}
+			<div>
+				<p>By {review.reviewerName}</p>
+				<p>{review.description}</p>
+				<p>Rating: {review.rating}</p>
+			</div>
+			<hr />
+		{/each}
+	{/if}
 </SidePanel>

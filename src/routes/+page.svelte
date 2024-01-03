@@ -1,14 +1,20 @@
 <script lang="ts">
-	// import { enhance } from '$app/forms';
 	import Dialog from '$lib/components/Dialog.svelte';
 	import ProductCard from '$lib/components/ProductCard.svelte';
 	import HStack from '$lib/components/HStack.svelte';
 
-	import { storeTest } from './store.js';
 	import ReviewsSidePanel from '$lib/components/ReviewsSidePanel/ReviewsSidePanel.svelte';
+	import { enhance } from '$app/forms';
+	import Button from '$lib/components/Button.svelte';
 
 	export let data;
 	export let form;
+
+	let buttonLoadingState = false;
+	const postData = () => {
+		buttonLoadingState = true;
+		return () => (buttonLoadingState = false);
+	};
 
 	let viewAddProductForm = false;
 	const handleToggleViewProductForm = (open: boolean) => {
@@ -36,7 +42,7 @@
 
 <Dialog isOpen={viewAddProductForm} handleIsOpen={handleToggleViewProductForm}>
 	<h3>Add product</h3>
-	<form method="POST" action="?/postProduct">
+	<form method="POST" action="?/postProduct" use:enhance={postData}>
 		<label>
 			Title
 			<input name="title" />
@@ -50,8 +56,12 @@
 			<input name="price" />
 		</label>
 		<HStack>
-			<button on:click={() => handleToggleViewProductForm(false)} type="button">Close</button>
-			<button type="submit">Add product</button>
+			<button
+				on:click={() => handleToggleViewProductForm(false)}
+				type="button"
+				disabled={buttonLoadingState}>Close</button
+			>
+			<button type="submit" disabled={buttonLoadingState}>Add product</button>
 		</HStack>
 	</form>
 	{#if form?.message}
@@ -61,7 +71,7 @@
 
 <Dialog isOpen={viewAddReviewForm} handleIsOpen={handleToggleViewProductForm}>
 	<h3>Add review for {productId}</h3>
-	<form method="POST" action="?/postReview">
+	<form method="POST" action="?/postReview" use:enhance={postData}>
 		<label>
 			Reviewer name
 			<input name="reviewerName" />
@@ -74,10 +84,14 @@
 			Rating (1-10)
 			<input name="rating" type="number" />
 		</label>
-		<input name="productId" value={productId} class="hide" />
+		<input name="productId" value={productId} type="hidden" />
 		<HStack>
-			<button on:click={() => toggleAddReviewForm(false)} type="button">Close</button>
-			<button type="submit">Add review</button>
+			<button
+				on:click={() => toggleAddReviewForm(false)}
+				type="button"
+				disabled={buttonLoadingState}>Close</button
+			>
+			<button type="submit" disabled={buttonLoadingState}>Add review</button>
 		</HStack>
 	</form>
 	{#if form?.message}
@@ -94,7 +108,12 @@
 />
 
 <section>
-	<button on:click={() => handleToggleViewProductForm(true)}>Add product</button>
+	<Button
+		onClickHandler={() => handleToggleViewProductForm(true)}
+		variant="primary"
+		background="orange"
+		--margin="20px 0">Add product</Button
+	>
 </section>
 
 <section class="products">
@@ -125,10 +144,5 @@
 		justify-content: center;
 		align-items: center;
 		/* flex: 0.6; */
-	}
-	.hide {
-		visibility: hidden;
-		height: 0;
-		width: 0;
 	}
 </style>
