@@ -13,10 +13,12 @@
 	export let form;
 
 	let buttonIsLoading = false;
+	let showFormMessage = false;
 
 	let viewAddProductForm = false;
 	const handleToggleViewProductForm = (open: boolean) => {
 		viewAddProductForm = open;
+		showFormMessage = false;
 	};
 
 	let openReviewsSidePanel = false;
@@ -25,11 +27,13 @@
 	const toggleReviewsSidePanel = (open: boolean, prodId?: string) => {
 		openReviewsSidePanel = open;
 		productId = prodId;
+		showFormMessage = false;
 	};
 
 	let viewAddReviewForm = false;
 	const toggleAddReviewForm = (open: boolean) => {
 		viewAddReviewForm = open;
+		showFormMessage = false;
 	};
 </script>
 
@@ -47,6 +51,7 @@
 			buttonIsLoading = true;
 			return async ({ result, update }) => {
 				buttonIsLoading = false;
+				showFormMessage = true;
 				if (result.type === 'redirect') {
 					goto(result.location);
 				} else {
@@ -75,7 +80,7 @@
 			>
 		</HStack>
 	</form>
-	{#if form?.message}
+	{#if form?.message && showFormMessage}
 		<p>{form?.message.toString()}</p>
 	{/if}
 </Dialog>
@@ -89,6 +94,7 @@
 			buttonIsLoading = true;
 			return async ({ result, update }) => {
 				buttonIsLoading = false;
+				showFormMessage = true;
 				if (result.type === 'redirect') {
 					goto(result.location);
 				} else {
@@ -119,7 +125,7 @@
 			>
 		</HStack>
 	</form>
-	{#if form?.message}
+	{#if form?.message && showFormMessage}
 		<p>{form?.message.toString()}</p>
 	{/if}
 </Dialog>
