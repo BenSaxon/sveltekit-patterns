@@ -1,4 +1,5 @@
 import type { Product, Review } from '$lib/models';
+import { getErrorMessage } from '$lib/utils/errorUtils.js';
 import { fail } from '@sveltejs/kit';
 
 interface PostProductResponse {
@@ -18,9 +19,9 @@ export const actions = {
 			const title = data.get('title');
 			const imageUrl = data.get('imageUrl');
 			const price = data.get('price');
-			if (!title) throw new Error('title is required');
-			if (!imageUrl) throw new Error('image url is required');
-			if (!price) throw new Error('price is required');
+			if (!title) throw new Error('Title is required');
+			if (!imageUrl) throw new Error('Image url is required');
+			if (!price) throw new Error('Price is required');
 			const body = {
 				title: title,
 				imageUrl: imageUrl,
@@ -52,10 +53,10 @@ export const actions = {
 			const description = data.get('description');
 			const productId = data.get('productId');
 
-			if (!reviewerName) throw new Error('reviewerName is required');
-			if (!rating) throw new Error('rating is required');
-			if (!description) throw new Error('description is required');
-			if (!productId) throw new Error('productId is required');
+			if (!reviewerName) throw new Error('Reviewer name is required');
+			if (!rating) throw new Error('Rating is required');
+			if (!description) throw new Error('Description is required');
+			if (!productId) throw new Error('ProductId is required');
 
 			const body = {
 				reviewerName,
@@ -78,7 +79,7 @@ export const actions = {
 			response.success = true;
 			return response;
 		} catch (error) {
-			return fail(400, { message: 'An error occurred.', success: false });
+			return fail(400, { message: getErrorMessage(error) || 'An error occurred.', success: false });
 		}
 	}
 };
