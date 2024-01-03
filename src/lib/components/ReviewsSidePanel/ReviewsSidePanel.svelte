@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ActionData } from '../../../routes/$types';
+	import Button from '../Button.svelte';
 	import SidePanel from '../SidePanel.svelte';
 	import { loadReviews, reviewsStore } from './store';
 
@@ -18,7 +19,12 @@
 </script>
 
 <SidePanel {view} {toggleSidePanel}>
-	<button on:click={() => toggleAddReviewForm(true, productId)}>Add review</button>
+	<Button
+		onClickHandler={() => toggleAddReviewForm(true, productId)}
+		variant="primary"
+		size="sm"
+		--margin="20px 0 0 0">Add review</Button
+	>
 	{#if $reviewsStore.loading}
 		<p>Loading...</p>
 	{:else if $reviewsStore.data}

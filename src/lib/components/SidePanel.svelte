@@ -1,10 +1,12 @@
 <script lang="ts">
+	import Button from './Button.svelte';
+
 	export let view: boolean;
 	export let toggleSidePanel: (open: boolean) => void;
 </script>
 
 <div class={view ? 'view side-panel' : 'side-panel'}>
-	<button on:click={() => toggleSidePanel(false)}>Close</button>
+	<Button onClickHandler={() => toggleSidePanel(false)} variant="outline" size="sm">Close</Button>
 	<slot />
 </div>
 
