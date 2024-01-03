@@ -7,8 +7,9 @@
 	export let flat = false;
 	export let loading = false;
 	export let disabled = false;
-	export let onClickHandler: () => void;
+	export let onClickHandler: (() => void) | undefined = undefined;
 	export let testId = 'button';
+	export let type: 'button' | 'submit' = 'button';
 </script>
 
 <button
@@ -16,8 +17,9 @@
 	class:flat
 	class:loading
 	class:disabled
-	on:click={() => (loading || disabled ? null : onClickHandler())}
+	on:click={() => (loading || disabled ? null : onClickHandler ? onClickHandler() : null)}
 	data-testid={testId}
+	{type}
 >
 	<div class={loading ? `spinner-wrapper loading ${size}` : `spinner-wrapper ${size}`}>
 		<Spinner orangeBackground={background === 'orange'} />

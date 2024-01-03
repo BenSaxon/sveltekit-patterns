@@ -6,15 +6,13 @@
 	import ReviewsSidePanel from '$lib/components/ReviewsSidePanel/ReviewsSidePanel.svelte';
 	import { enhance } from '$app/forms';
 	import Button from '$lib/components/Button.svelte';
+	import Input from '$lib/components/Input.svelte';
+	import { goto } from '$app/navigation';
 
 	export let data;
 	export let form;
 
-	let buttonLoadingState = false;
-	const postData = () => {
-		buttonLoadingState = true;
-		return () => (buttonLoadingState = false);
-	};
+	let buttonIsLoading = false;
 
 	let viewAddProductForm = false;
 	const handleToggleViewProductForm = (open: boolean) => {
@@ -42,26 +40,39 @@
 
 <Dialog isOpen={viewAddProductForm} handleIsOpen={handleToggleViewProductForm}>
 	<h3>Add product</h3>
-	<form method="POST" action="?/postProduct" use:enhance={postData}>
-		<label>
-			Title
-			<input name="title" />
-		</label>
-		<label>
-			Image URL
-			<input name="imageUrl" />
-		</label>
-		<label>
-			Price (pence)
-			<input name="price" />
-		</label>
-		<HStack>
-			<button
-				on:click={() => handleToggleViewProductForm(false)}
+	<form
+		method="POST"
+		action="?/postProduct"
+		use:enhance={() => {
+			buttonIsLoading = true;
+			return async ({ result, update }) => {
+				buttonIsLoading = false;
+				if (result.type === 'redirect') {
+					goto(result.location);
+				} else {
+					await update();
+				}
+			};
+		}}
+	>
+		<Input name="title" label="Title:" --margin="20px 0 0 0" />
+		<Input name="imageUrl" label="Image URL:" --margin="20px 0 0 0" />
+		<Input name="price" label="Price:" type="number" --margin="20px 0 0 0" />
+		<HStack --margin="40px 0 0 0">
+			<Button
+				onClickHandler={() => handleToggleViewProductForm(false)}
 				type="button"
-				disabled={buttonLoadingState}>Close</button
+				size="sm"
+				variant="outline"
+				disabled={buttonIsLoading}>Close</Button
 			>
-			<button type="submit" disabled={buttonLoadingState}>Add product</button>
+			<Button
+				type="submit"
+				loading={buttonIsLoading}
+				size="sm"
+				variant="primary"
+				background="orange">Add product</Button
+			>
 		</HStack>
 	</form>
 	{#if form?.message}
@@ -71,27 +82,41 @@
 
 <Dialog isOpen={viewAddReviewForm} handleIsOpen={handleToggleViewProductForm}>
 	<h3>Add review for {productId}</h3>
-	<form method="POST" action="?/postReview" use:enhance={postData}>
-		<label>
-			Reviewer name
-			<input name="reviewerName" />
-		</label>
-		<label>
-			Description
-			<input name="description" />
-		</label>
-		<label>
-			Rating (1-10)
-			<input name="rating" type="number" />
-		</label>
+	<form
+		method="POST"
+		action="?/postReview"
+		use:enhance={() => {
+			buttonIsLoading = true;
+			return async ({ result, update }) => {
+				buttonIsLoading = false;
+				if (result.type === 'redirect') {
+					goto(result.location);
+				} else {
+					await update();
+				}
+			};
+		}}
+	>
+		<Input name="reviewerName" label="Reviewer name:" --margin="20px 0 0 0" />
+		<Input name="description" label="Description:" --margin="20px 0 0 0" />
+		<Input name="rating" label="Rating (1-10):" type="number" --margin="20px 0 0 0" />
 		<input name="productId" value={productId} type="hidden" />
-		<HStack>
-			<button
-				on:click={() => toggleAddReviewForm(false)}
+		<HStack --margin="40px 0 0 0">
+			<Button
+				onClickHandler={() => toggleAddReviewForm(false)}
 				type="button"
-				disabled={buttonLoadingState}>Close</button
+				size="sm"
+				variant="outline"
+				disabled={buttonIsLoading}>Close</Button
 			>
-			<button type="submit" disabled={buttonLoadingState}>Add review</button>
+			<Button
+				type="submit"
+				loading={buttonIsLoading}
+				onClickHandler={() => null}
+				size="sm"
+				variant="primary"
+				background="orange">Add review</Button
+			>
 		</HStack>
 	</form>
 	{#if form?.message}

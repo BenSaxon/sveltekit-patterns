@@ -32,7 +32,7 @@
 			<div>
 				<p>By {review.reviewerName}</p>
 				<p>{review.description}</p>
-				<p>Rating: {review.rating}</p>
+				<p>Rating: {review.rating}/10</p>
 			</div>
 			<hr />
 		{/each}
