@@ -12,7 +12,7 @@
 
 	$: {
 		if (view) loadReviews(productId);
-		else if (formaData?.success) {
+		else if (formaData) {
 			loadReviews(productId);
 		}
 	}
