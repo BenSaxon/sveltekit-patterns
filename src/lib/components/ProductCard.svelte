@@ -1,8 +1,6 @@
 <script lang="ts">
-	import type { Timestamp } from 'firebase/firestore';
 	import { currencyAndAmountFormatter } from '$lib/utils/currencyUtils';
 	import Card from './Card.svelte';
-	import { formatDate } from '$lib/utils/dateUtils';
 	import Button from './Button.svelte';
 
 	export let title: string;

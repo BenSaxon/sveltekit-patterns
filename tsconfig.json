@@ -10,8 +10,8 @@
 		"sourceMap": true,
 		"strict": true,
 		"moduleResolution": "bundler"
-	}
-	// "include": ["src", "vitest.setup.ts"]
+	},
+	"include": ["src", "vitest.setup.ts", ".svelte-kit/ambient.d.ts"]
 	// "types": ["node", "vitest", "@testing-library/jest-dom"]
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//

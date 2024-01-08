@@ -1,6 +1,7 @@
 import type { Product, Review } from '$lib/models';
 import { getErrorMessage } from '$lib/utils/errorUtils.js';
 import { fail } from '@sveltejs/kit';
+// import { PUBLIC_API_URL } from '$env/static/public';
 
 interface PostProductResponse {
 	message?: string;
@@ -28,7 +29,7 @@ export const actions = {
 				price: price
 			};
 			const postProductRequest = await fetch(
-				'http://127.0.0.1:5001/merchant-ai-poc-dev/europe-west3/postProduct',
+				'http://127.0.0.1:5001/merchant-ai-poc-dev/europe-west3' + '/postProduct',
 				{
 					method: 'POST',
 					mode: 'cors',
@@ -65,7 +66,7 @@ export const actions = {
 				productId
 			};
 			const postReviewRequest = await fetch(
-				'http://127.0.0.1:5001/merchant-ai-poc-dev/europe-west3/postReview',
+				'http://127.0.0.1:5001/merchant-ai-poc-dev/europe-west3' + '/postReview',
 				{
 					method: 'POST',
 					mode: 'cors',

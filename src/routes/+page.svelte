@@ -4,10 +4,9 @@
 	import HStack from '$lib/components/HStack.svelte';
 
 	import ReviewsSidePanel from '$lib/components/ReviewsSidePanel/ReviewsSidePanel.svelte';
-	import { enhance } from '$app/forms';
+	// import { enhance } from '$app/forms';
 	import Button from '$lib/components/Button.svelte';
 	import Input from '$lib/components/Input.svelte';
-	import { goto } from '$app/navigation';
 
 	export let data;
 	export let form;
@@ -44,22 +43,19 @@
 
 <Dialog isOpen={viewAddProductForm} handleIsOpen={handleToggleViewProductForm}>
 	<h3>Add product</h3>
-	<form
+	<!-- <form
 		method="POST"
 		action="?/postProduct"
 		use:enhance={() => {
 			buttonIsLoading = true;
-			return async ({ result, update }) => {
+			return async ({ update }) => {
 				buttonIsLoading = false;
 				showFormMessage = true;
-				if (result.type === 'redirect') {
-					goto(result.location);
-				} else {
-					await update();
-				}
+				await update();
 			};
 		}}
-	>
+	> -->
+	<form method="POST" action="?/postProduct">
 		<Input name="title" label="Title:" --margin="20px 0 0 0" />
 		<Input name="imageUrl" label="Image URL:" --margin="20px 0 0 0" />
 		<Input name="price" label="Price:" type="number" --margin="20px 0 0 0" />
@@ -87,22 +83,19 @@
 
 <Dialog isOpen={viewAddReviewForm} handleIsOpen={handleToggleViewProductForm}>
 	<h3>Add review for {productId}</h3>
-	<form
+	<!-- <form
 		method="POST"
 		action="?/postReview"
 		use:enhance={() => {
 			buttonIsLoading = true;
-			return async ({ result, update }) => {
+			return async ({ update }) => {
 				buttonIsLoading = false;
 				showFormMessage = true;
-				if (result.type === 'redirect') {
-					goto(result.location);
-				} else {
-					await update();
-				}
+				await update();
 			};
 		}}
-	>
+	> -->
+	<form method="POST" action="?/postReview">
 		<Input name="reviewerName" label="Reviewer name:" --margin="20px 0 0 0" />
 		<Input name="description" label="Description:" --margin="20px 0 0 0" />
 		<Input name="rating" label="Rating (1-10):" type="number" --margin="20px 0 0 0" />

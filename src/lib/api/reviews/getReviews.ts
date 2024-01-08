@@ -1,4 +1,5 @@
 import type { Review } from '$lib/models';
+// import { PUBLIC_API_URL } from '$env/static/public';
 
 const getReviews = async (productId: string): Promise<Review[]> => {
 	const reviewsRequest = await fetch(

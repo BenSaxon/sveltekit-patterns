@@ -4,7 +4,8 @@ import Page from './+page.svelte';
 import { createTimestamp } from '$lib/utils/timeUtils';
 import { render, screen } from '@testing-library/svelte';
 import { mockProducts } from '$lib/utils/mockDataUtils';
-import 'vitest-dom/extend-expect'; // requried for using matchers like toBeInTheDocment
+import 'vitest-dom/extend-expect'; // required for using matchers like toBeInTheDocument
+// todo: ^ should not have to be imported, need to configure vitest.setup.ts, vitest.config.ts and tsconfig
 import type { Product } from '$lib/models';
 
 const apiResponse: Product[] = [
